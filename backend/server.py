@@ -1,6 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import vertexai
+import json
 from vertexai.preview import generative_models
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
 
@@ -37,20 +38,38 @@ def get_chat_response(chat: ChatSession, prompt: str,  generation_config={
     response = chat.send_message(prompt)
     return response.text
 
-prompt = "Hello."
-string=print(get_chat_response(chat, prompt))
+# prompt = "Hello."
+# string=print(get_chat_response(chat, prompt))
 limit = "  Respond in less than 20 words"
-prompt = "Please show me POANG chair dimensions in IKEA"+limit
+prompt = "You will introduce yourself as AIngvar, the users friendly Swedish helping chatbot. Speak in English. And you will only answer questions relating to IKEA, and assist as an IKEA designer"+limit
 print(get_chat_response(chat, prompt))
 
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/chatbot", methods=['GET'])
+
+# @app.route("/response", methods=['POST'])
+# def response():
+#     # data = request.json
+#     return{'data': 'Receieved'}
+    
+@app.route("/chatbot", methods=['GET', 'POST'])
 def chatbot():
-    return jsonify({
-        'message': 'Hello'
+    if request.method == "POST":
+        obj = json.loads(request.data)
+        for key in obj:
+            # prompt = obj[key]
+            return jsonify({
+                'message':get_chat_response(chat, key+limit)
+            })
+        # print(request.form.get('message'))
+    #     return jsonify({
+    #     'message': get_chat_response(chat,request.form.get('message'))
+    # })
+    if request.method == 'GET':
+        return jsonify({
+        'message': get_chat_response(chat,prompt)
     })
 
 if __name__ == '__main__':
