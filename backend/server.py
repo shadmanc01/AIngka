@@ -16,7 +16,7 @@ def to_markdown(text):
   text = text.replace('•', '  *')
   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
-genai.configure(api_key='AIzaSyA1_HyCycvJGbC3e6oMf34Rku_g3SvlKJs')
+genai.configure(api_key='API_KEY')
 
 # for m in genai.list_models():
 #   if 'generateContent' in m.supported_generation_methods:
