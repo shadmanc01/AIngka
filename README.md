@@ -1,4 +1,4 @@
-# AIngka
+# AIngvar
 Overview
 
 The IKEA Home Planner Chatbot is an intelligent assistant designed to help customers plan their home and receive personalized furniture recommendations. Built using cutting-edge technologies, including Next.js for the frontend, Python for the backend server, and the Google Gemeni Ultra API for advanced image processing, this chatbot offers a seamless and intuitive experience for IKEA customers.
